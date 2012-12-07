@@ -68,6 +68,7 @@
 </head>
 
 <body <?php body_class(); ?>>
+<div id="dawit"></div>
 <div id="page" class="hfeed">
 	<header id="branding" role="banner">
 			<hgroup>
