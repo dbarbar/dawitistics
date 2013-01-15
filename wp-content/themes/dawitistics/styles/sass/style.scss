@@ -1,0 +1,153 @@
+/* Welcome to Compass.
+ * In this file you should write your main styles. (or centralize your imports)
+ * Import this file using the following HTML or equivalent:
+ * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+//-----------------------------------------------------------------------
+//  §IMPORTS
+//-----------------------------------------------------------------------
+@import "compass", "compass/reset";
+$baseSize: 16;
+
+
+//-----------------------------------------------------------------------
+//  §FUNCTIONS
+//-----------------------------------------------------------------------
+@function convert($pixels, $add: 0) { @return (($pixels + $add) / $baseSize) + em; }
+
+
+//-----------------------------------------------------------------------
+//  §VARIABLES
+//-----------------------------------------------------------------------
+// TWITTER BOOTSTRAP -- http://twitter.github.com/bootstrap/scaffolding.html#responsive
+// /* Landscape phones and down */
+// @media (max-width: 480px) { ... }
+// /* Landscape phone to portrait tablet */
+// @media (max-width: 767px) { ... }
+// /* Portrait tablet to landscape and desktop */
+// @media (min-width: 768px) and (max-width: 979px) { ... }
+// /* Large desktop */
+// @media (min-width: 1200px) { ... }
+//
+// em based breakpoints -- http://blog.cloudfour.com/the-ems-have-it-proportional-media-queries-ftw/
+// should the layout go between ems and rems, px and rems, or all three
+// breakpoints
+$breakSmall: 480;
+$breakMedium: 767;
+$breakLarge: 979;
+//$breakWide: 1200px;
+
+//-----------------------------------------------------------------------
+//  §MIXINS
+//-----------------------------------------------------------------------
+@mixin responsive($media) {
+	@if $media == handheld {
+		@media only screen and (max-width: convert($breakSmall)) {
+			@content;
+		}
+	} @else if $media == tablet {
+		@media only screen and (min-width: convert($breakSmall, 1)) and (max-width: convert($breakMedium)) {
+			@content;
+		}
+	} @else if $media == desktop {
+		@media only screen and (min-width: convert($breakMedium, 1)) and (max-width: convert($breakLarge)) {
+			@content;
+		}
+	} @else if $media == widescreen {
+		@media only screen and (min-width: convert($breakLarge, 1)) {
+			@content;
+		}
+	} @else if $media == hd {
+		@media only screen and (-moz-min-device-pixel-ratio: 1.5), (min--moz-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 3/2), (-webkit-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 1.5dppx) {
+			@content;
+		}
+	} @else if $media == retina {
+		@media only screen and (-moz-min-device-pixel-ratio: 2), (min--moz-device-pixel-ratio: 2), (-o-min-device-pixel-ratio: 2/1), (-webkit-min-device-pixel-ratio: 2), (min-device-pixel-ratio: 2), (min-resolution: 2dppx) {
+			// Size of retina sprite image is 400px x 400px
+			// background-image: url(sprite-2x.png);
+			// Bring down size to 1x size
+			// background-size: 200px 200px;
+			@content;
+		}
+	}
+}
+
+body {
+	background: #ff0;
+	font: 300 15px/1.625 "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+article {
+	margin: 0 0 14.625em;
+	padding: 0 0 1.625em;
+	position: relative;
+
+	&:after {
+		content: '';
+		padding: 5px 50px;
+		border-radius: 50%;
+		background: #fff;
+		@include border-radius(50%);
+		@include single-box-shadow(rgba(58, 58, 0, 0.2), 0, 2px, 4px, 2px);
+	}
+
+	h1 {
+		clear: both;
+	    color: #222222;
+	    font-size: 26px;
+	    font-weight: bold;
+	    line-height: 1.5em;
+	    padding-bottom: 0.3em;
+	    padding-top: 15px;
+	    text-align: center;
+	}
+}
+.dawit {
+	background: url(../images/dawit.jpg) no-repeat #ff0;
+	bottom: 0;
+	left: 0;
+	width: 532px;
+	height: 613px;
+	position: fixed;
+	background-position: 0 bottom;
+
+	@include responsive(handheld) {
+		@include background-size();
+		max-width: 100%;
+	}
+}
+.entry-header {
+	border-radius: 50%;
+	padding: 20px;
+	background: #fff;
+	@include border-radius(50%);
+	@include single-box-shadow(rgba(58, 58, 0, 0.2), 0, 2px, 4px, 2px);
+	text-align: center;
+
+	@include responsive(handheld) {
+		max-width: 100%;
+	}
+	@include responsive(tablet) {
+		max-width: 100%;
+	}
+}
+footer {
+	top: 0;
+	width: 100%;
+	position: fixed;
+	z-index: 999;
+
+	@include responsive(handheld) {
+		position: absolute;
+	}
+}
+.wrapper {
+	width: 700px;
+	margin: 0 auto;
+
+	@include responsive(handheld) {
+		width: 100%;
+	}
+	@include responsive(tablet) {
+		width: 100%;
+	}
+}
