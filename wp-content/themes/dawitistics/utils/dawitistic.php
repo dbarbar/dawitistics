@@ -14,4 +14,4 @@ while(have_posts())
 
 //send it
 header("Content-type: text/plain; charset: UTF-8");
-echo $title;
+echo html_entity_decode($title, ENT_QUOTES, 'UTF-8');
